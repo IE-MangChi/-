@@ -12,7 +12,7 @@ public class GiftEvent implements Event<Integer, MenuCategory>{
     }
 
     @Override
-    public MenuCategory discount(Integer value) {
+    public MenuCategory discount(Integer amount) {
         return MenuCategory.CHAMPAGNE;
     }
 }
