@@ -44,7 +44,7 @@ public enum MenuCategory {
 
     public static Optional<MenuCategory> getDishDataByName(String menuName) {
         return Arrays.stream(MenuCategory.values())
-                .filter(dish -> dish.equals(menuName))
+                .filter(menuCategory -> menuCategory.dish.equals(menuName))
                 .findFirst();
     }
 
