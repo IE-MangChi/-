@@ -1,7 +1,8 @@
 package christmas.domain.order.dto;
 
 
-import christmas.domain.order.Order;
+import christmas.domain.menu.MenuCategory;
+import java.util.Map;
 
-public record OrderDto(Order order) {
+public record OrderDto(Map<MenuCategory, Integer> order) {
 }

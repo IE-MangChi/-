@@ -44,6 +44,6 @@ public class Order {
     }
 
     public OrderDto getOrder() {
-        return new OrderDto((Order) orderItem);
+        return new OrderDto(orderItem);
     }
 }
