@@ -11,7 +11,7 @@ public class Order {
     private final Map<MenuCategory, Integer> orderItem = new HashMap<>();
     private long totalQuantity = 0L;
 
-    private Order() {}
+    public Order() {}
 
     private void put(final MenuCategory menuCategory, final Integer count) {
         orderItem.put(menuCategory, count);
