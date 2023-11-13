@@ -1,6 +1,6 @@
 package christmas.domain.event;
 
-public enum D_DayEvent implements Event<Integer, Integer>{
+public enum D_DayEvent implements Event<Integer, Integer, Integer>{
 
     DISCOUNT_DAY(EventConfig.START_DATE, EventConfig.END_DATE);
 

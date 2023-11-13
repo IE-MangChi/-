@@ -2,7 +2,7 @@ package christmas.domain.event;
 
 import java.util.Arrays;
 
-public enum SpecialEvent implements Event<Integer, Integer>{
+public enum SpecialEvent implements Event<Integer, Integer, Integer>{
 
     STAR(EventConfig.SPECIAL_DISCOUNT_DAY);
 
@@ -21,7 +21,7 @@ public enum SpecialEvent implements Event<Integer, Integer>{
     }
 
     @Override
-    public Integer discount(Integer value) {
+    public Integer discount(Integer day) {
         return EventConfig.SPECIAL_DISCOUNT_AMOUNT;
     }
 }

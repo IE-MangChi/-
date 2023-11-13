@@ -1,8 +1,8 @@
 package christmas.domain.event;
 
-public interface Event<T, R> {
+public interface Event<T, R, E> {
 
     boolean support(T value);
 
-    R discount(T value);
+    R discount(E value);
 }
