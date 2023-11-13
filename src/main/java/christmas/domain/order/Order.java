@@ -4,6 +4,7 @@ import christmas.domain.menu.MenuCategory;
 import christmas.domain.order.dto.OrderDto;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class Order {
 
@@ -29,13 +30,13 @@ public class Order {
     }
 
     private static MenuCategory validateMenu(String menu) {
-        try {
-            MenuCategory dish = MenuCategory.getDishDataByName(menu);
-            return dish;
-        } catch (IllegalArgumentException e) {
+        Optional<MenuCategory> dish = MenuCategory.getDishDataByName(menu);
+        if (dish.isEmpty()) {
             throw new IllegalArgumentException(
-                    "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+                    "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요."
+            );
         }
+        return dish.get();
     }
 
     private boolean canOrder(Integer count) {
@@ -45,6 +46,4 @@ public class Order {
     public OrderDto getOrder() {
         return new OrderDto((Order) orderItem);
     }
-
-    private
 }

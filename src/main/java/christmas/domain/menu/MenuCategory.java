@@ -1,6 +1,7 @@
 package christmas.domain.menu;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public enum MenuCategory {
 
@@ -39,6 +40,12 @@ public enum MenuCategory {
                 .map(MenuCategory::getPrice)
                 .orElseThrow(() -> new IllegalArgumentException(
                         "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요."));
+    }
+
+    public static Optional<MenuCategory> getDishDataByName(String menuName) {
+        return Arrays.stream(MenuCategory.values())
+                .filter(dish -> dish.equals(menuName))
+                .findFirst();
     }
 
     public String getDish() {
