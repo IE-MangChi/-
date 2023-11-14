@@ -26,7 +26,7 @@ public enum MenuCategory {
     ICE_CREAM("아이스크림", 5_000);
 
     private final String dish;
-    private final int price;
+    private final long price;
 
     MenuCategory(String dish, int price) {
         this.dish = dish;
@@ -43,7 +43,7 @@ public enum MenuCategory {
         return dish;
     }
 
-    public int getPrice() {
+    public long getPrice() {
         return price;
     }
 
