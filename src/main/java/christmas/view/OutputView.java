@@ -16,7 +16,7 @@ public class OutputView {
 
         System.out.println("주문 메뉴");
         for (Entry<MenuCategory, Integer> entry : order.entrySet()) {
-            System.out.println(entry.getKey().getDish() +" "+ entry.getValue());
+            System.out.println(entry.getKey().getDish() + " " + entry.getValue());
         }
     }
 
@@ -31,7 +31,7 @@ public class OutputView {
             System.out.println("없음");
             return;
         }
-        System.out.println(gift.getDish());
+        System.out.println(gift.getDish() + " 1개");
     }
 
     public void printDiscountResultIntro() {
@@ -39,29 +39,37 @@ public class OutputView {
 
     }
 
+    public void printDiscountEmpty() {
+        System.out.println("없음");
+    }
+
     public void printD_DayDiscount(Integer amount) {
-        if (amount == null) {
-            System.out.println("크리스마스 디데이 할인: 없음");
-            return;
-        }
-        System.out.println("크리스마스 디데이 할인: -"+ amount);
+        System.out.println("크리스마스 디데이 할인: -" + amount + "원");
+    }
+
+    public void printWeekdayDiscount(Integer amount) {
+        System.out.println("평일 할인: -" + amount + "원");
+    }
+
+    public void printWeekendDiscount(Integer amount) {
+        System.out.println("주말 할인: -" + amount + "원");
+    }
+
+    public void printSpecialDiscount(Integer amount) {
+        System.out.println("특별 할인:: -" + amount + "원");
     }
 
     public void printGiftDiscount(MenuCategory gift) {
-        if (gift == null) {
-            System.out.println("증정 이벤트: 없음");
-            return;
-        }
-        System.out.println("증정 이벤트: -"+ gift.getPrice());
+        System.out.println("증정 이벤트: -" + gift.getPrice() + "원");
     }
 
-    // 주간 할인 추가 예정
+    public void printTotalBenefitAmount(Integer amount) {
+        System.out.println("<총혜택 금액>");
+        System.out.println("-" + amount + "원");
+    }
 
-    public void printSpecialDiscount(Integer amount) {
-        if (amount == null) {
-            System.out.println("특별 할인:: 없음");
-            return;
-        }
-        System.out.println("특별 할인:: -"+ amount);
+    public void printAfterDiscountAmount(Integer amount) {
+        System.out.println("<할인 후 예상 결제 금액>");
+        System.out.println(amount + "원");
     }
 }
