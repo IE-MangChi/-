@@ -21,12 +21,19 @@ public class MainController {
 
     public void server() {
         outputView.printIntro();
-        int date = inputView.readDate();
+        int date = inputVisitDate();
 
         Order order = orderController.order();
-
         AmountDto discountedAmount = eventController.event(order, date);
         paymentController.pay(discountedAmount);
     }
 
+    private int inputVisitDate() {
+        try {
+            return inputView.readDate();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return inputVisitDate();
+        }
+    }
 }

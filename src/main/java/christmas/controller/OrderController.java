@@ -1,8 +1,6 @@
 package christmas.controller;
 
 import christmas.domain.order.Order;
-import christmas.domain.order.OrderAmount;
-import christmas.domain.order.dto.OrderDto;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.Map;
@@ -14,14 +12,28 @@ public class OrderController {
     private final OutputView outputView = new OutputView();
 
     public Order order() {
-        Map<String, Integer> menus = inputView.readMenu();
+        Map<String, Integer> menus = inputMenuOrder();
 
+        Order order = takeOrder(menus);
+        outputView.printPreview();
+        outputView.printMenu(order.getOrder());
+        return order;
+    }
+
+    private static Order takeOrder(Map<String, Integer> menus) {
         Order order = new Order();
         for (Entry<String, Integer> entry : menus.entrySet()) {
             order.plus(entry.getKey(), entry.getValue());
         }
-        outputView.printPreview();
-        outputView.printMenu(order.getOrder());
         return order;
+    }
+
+    private Map<String, Integer> inputMenuOrder() {
+        try {
+            return inputView.readMenu();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return inputMenuOrder();
+        }
     }
 }

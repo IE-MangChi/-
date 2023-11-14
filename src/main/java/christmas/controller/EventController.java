@@ -21,30 +21,47 @@ public class EventController {
     }
 
     public AmountDto event(Order order, int date) {
-        long totalAmount = OrderAmount.of(order).getTotalAmount();
-        outputView.printTotalAmount(totalAmount);
+        long totalAmount = printTotalAmount(order);
 
         if (totalAmount < 10_000) {
-            outputView.printGiftMenu(null);
-            outputView.printDiscountResultIntro();
-            outputView.printDiscountEmpty();
-            outputView.printTotalBenefitAmount(0L);
+            printEventNothing();
             return new AmountDto(totalAmount, 0L);
         }
-
         MenuCategory gift = giftMenu(totalAmount);
 
         outputView.printDiscountResultIntro();
+        Long discount = applyEvent(order, date, gift);
+
+        printDiscountResult(discount, totalAmount);
+        return new AmountDto(totalAmount, discount);
+    }
+
+    private long printTotalAmount(Order order) {
+        long totalAmount = OrderAmount.of(order).getTotalAmount();
+        outputView.printTotalAmount(totalAmount);
+        return totalAmount;
+    }
+
+    private void printDiscountResult(Long discount, long totalAmount) {
+        outputView.printTotalBenefitAmount(discount);
+        outputView.printAfterDiscountAmount(totalAmount - discount);
+    }
+
+    private Long applyEvent(Order order, int date, MenuCategory gift) {
         Long d_DayDiscount = d_DayEvent(date);
         Long weekdayDiscount = weekdayEvent(order, date);
         Long weekendDiscount = weekendEvent(order, date);
         Long specialDiscount = specialEvent(date);
         Long giftDiscount = giftEvent(gift);
 
-        Long discount = d_DayDiscount+weekdayDiscount+weekendDiscount+specialDiscount+giftDiscount;
-        outputView.printTotalBenefitAmount(discount);
-        outputView.printAfterDiscountAmount(totalAmount - discount);
-        return new AmountDto(totalAmount, discount);
+        return d_DayDiscount + weekdayDiscount + weekendDiscount + specialDiscount + giftDiscount;
+    }
+
+    private void printEventNothing() {
+        outputView.printGiftMenu(null);
+        outputView.printDiscountResultIntro();
+        outputView.printDiscountEmpty();
+        outputView.printTotalBenefitAmount(0L);
     }
 
     private MenuCategory giftMenu(Long totalAmount) {
