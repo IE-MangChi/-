@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 
 public class OrderAmount {
 
-    private long totalAmount;
+    private final long totalAmount;
 
     private OrderAmount(long totalAmount) {
         this.totalAmount = totalAmount;
