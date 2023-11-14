@@ -12,7 +12,7 @@ public enum BadgeEvent {
         this.badge = badge;
     }
 
-    public BadgeEvent getBadgeByTotalBenefitAmount(long amount) {
+    public static BadgeEvent getBadgeByTotalBenefitAmount(long amount) {
         if (amount >= EventConfig.STAR_BADGE_MINIMUM_AMOUNT) {
             return STAR;
         }
