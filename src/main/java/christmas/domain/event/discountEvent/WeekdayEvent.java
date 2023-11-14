@@ -19,7 +19,6 @@ public enum WeekdayEvent implements Event<Integer, Long, Order>{
     public boolean support(Integer date) {
         LocalDate weekOfDay = LocalDate.of(EventConfig.YEAR, EventConfig.MONTH, date);
         DayOfWeek week = weekOfDay.getDayOfWeek();
-        System.out.println(week);
         return discountWeekOfDay.stream()
                 .anyMatch(day -> day.equals(week));
     }
