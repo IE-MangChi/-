@@ -18,10 +18,10 @@ public class Order {
     }
 
     public void plus(final String menu, final Integer count) {
-        validateOrderCount(count);
         MenuCategory dish = validateIsInMenu(menu);
         put(dish, count);
         totalQuantity += count;
+        validateOrderCount(totalQuantity);
     }
 
     public int getMenuByMenuNames(List<MenuCategory> menuNames) {
@@ -51,8 +51,8 @@ public class Order {
         orderItem.put(menuCategory, count);
     }
 
-    private void validateOrderCount(Integer count) {
-        if (count >= OrderConfig.MAXIMUM_ORDER_AMOUNT) {
+    private void validateOrderCount(long totalQuantity) {
+        if (totalQuantity >= OrderConfig.MAXIMUM_ORDER_AMOUNT) {
             throw ChristmasException.of(ErrorMessage.MAXIMUM_MENU_QUANTITY_PER_ORDER);
         }
     }
