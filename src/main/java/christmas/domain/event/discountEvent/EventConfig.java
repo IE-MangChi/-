@@ -29,6 +29,6 @@ public class EventConfig {
 
     // 주말 할인
     protected static final List<DayOfWeek> WEEKEND_DISCOUNT_DAY_OF_WEEK = List.of(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY);
-    protected static final List<MenuCategory> WEEKEND_DISCOUNT_MENU = List.of(MenuCategory.CHOCO_CAKE, MenuCategory.ICE_CREAM);
+    protected static final List<MenuCategory> WEEKEND_DISCOUNT_MENU = List.of(MenuCategory.T_BONE_STEAK, MenuCategory.BBQ_RIB, MenuCategory.CHRISTMAS_PASTA, MenuCategory.SEAFOOD_PASTA);
     protected static final long WEEKEND_DISCOUNT_AMOUNT = 2_023;
 }

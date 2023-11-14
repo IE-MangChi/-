@@ -7,7 +7,7 @@ import java.util.List;
 
 public enum WeekendEvent implements Event<Integer, Long, Order>{
 
-    WEEKDAY_EVENT(EventConfig.WEEKEND_DISCOUNT_DAY_OF_WEEK);
+    WEEKEND_EVENT(EventConfig.WEEKEND_DISCOUNT_DAY_OF_WEEK);
 
     private List<DayOfWeek> discountWeekOfDay;
 
@@ -18,8 +18,9 @@ public enum WeekendEvent implements Event<Integer, Long, Order>{
     @Override
     public boolean support(Integer date) {
         LocalDate weekOfDay = LocalDate.of(EventConfig.YEAR, EventConfig.MONTH, date);
+        DayOfWeek week = weekOfDay.getDayOfWeek();
         return discountWeekOfDay.stream()
-                .anyMatch(day -> day.equals(weekOfDay));
+                .anyMatch(day -> day.equals(week));
     }
 
     @Override
