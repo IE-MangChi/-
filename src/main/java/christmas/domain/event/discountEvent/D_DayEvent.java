@@ -19,6 +19,6 @@ public enum D_DayEvent implements Event<Integer, Long, Integer>{
 
     @Override
     public Long discount(Integer date) {
-        return EventConfig.INITAL_DISCOUNT_AMOUNT + EventConfig.DAILY_DISCOUNT_INCREASE * date;
+        return EventConfig.INITAL_DISCOUNT_AMOUNT + EventConfig.DAILY_DISCOUNT_INCREASE * (date-1);
     }
 }
