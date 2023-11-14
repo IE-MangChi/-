@@ -25,26 +25,17 @@ public enum MenuCategory {
     CHOCO_CAKE("초코케이크", 15_000),
     ICE_CREAM("아이스크림", 5_000);
 
-    private String dish;
-    private int price;
+    private final String dish;
+    private final int price;
 
     MenuCategory(String dish, int price) {
         this.dish = dish;
         this.price = price;
     }
 
-    public int getPriceByMenuName(String menuName) {
-        return Arrays.stream(MenuCategory.values())
-                .filter(dish -> dish.equals(menuName))
-                .findFirst()
-                .map(MenuCategory::getPrice)
-                .orElseThrow(() -> new IllegalArgumentException(
-                        "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요."));
-    }
 
     public static Optional<MenuCategory> getDishDataByName(String menuName) {
-        return Arrays.stream(MenuCategory.values())
-                .filter(menuCategory -> menuCategory.dish.equals(menuName))
+        return Arrays.stream(MenuCategory.values()).filter(menuCategory -> menuCategory.dish.equals(menuName))
                 .findFirst();
     }
 
