@@ -13,16 +13,16 @@ class WeekendEventTest {
 
     @ParameterizedTest
     @CsvSource({"3","5","7","17","21","25","28","31"})
-    @DisplayName("금요일~ 토요일에만 주말 할인이 적용될수있다.")
+    @DisplayName("일요일~목요일에는 주말 할인이 적용될수없다.")
     void weekendEventCorrectSupportTest(Integer date) {
-        Assertions.assertThat(WeekendEvent.WEEKEND_EVENT.support(date)).isTrue();
+        Assertions.assertThat(WeekendEvent.WEEKEND_EVENT.support(date)).isFalse();
     }
 
     @ParameterizedTest
     @CsvSource({"1","2","8","15","22","23","29","30"})
-    @DisplayName("일요일~목요일에는 주말 할인이 적용될수없다.")
+    @DisplayName("금요일~ 토요일에만 주말 할인이 적용될수있다.")
     void weekendEventCorrectWrongTest(Integer date) {
-        Assertions.assertThat(WeekendEvent.WEEKEND_EVENT.support(date)).isFalse();
+        Assertions.assertThat(WeekendEvent.WEEKEND_EVENT.support(date)).isTrue();
     }
 
     @Test
