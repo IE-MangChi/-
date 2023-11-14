@@ -33,6 +33,9 @@ public class Order {
     public int getMenuByMenuNames(List<MenuCategory> menuNames) {
         int sum = 0;
         for (MenuCategory menuName : menuNames) {
+            if (orderItem.get(menuName) == null) {
+                continue;
+            }
             sum += orderItem.get(menuName);
         }
         return sum;
