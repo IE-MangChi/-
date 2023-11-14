@@ -2,13 +2,13 @@ package christmas.controller;
 
 import christmas.domain.order.Order;
 import christmas.domain.order.dto.AmountDto;
-import christmas.view.InputView;
-import christmas.view.OutputView;
+import christmas.view.input.InputView;
+import christmas.view.output.OrderView;
 
 public class MainController {
 
     private final InputView inputView = new InputView();
-    private final OutputView outputView = new OutputView();
+    private final OrderView orderView = new OrderView();
     private final OrderController orderController;
     private final EventController eventController;
     private final PaymentController paymentController;
@@ -20,7 +20,7 @@ public class MainController {
     }
 
     public void server() {
-        outputView.printIntro();
+        orderView.printIntro();
         int date = inputVisitDate();
 
         Order order = orderController.order();

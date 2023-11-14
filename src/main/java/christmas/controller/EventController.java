@@ -8,11 +8,11 @@ import christmas.domain.menu.MenuCategory;
 import christmas.domain.order.Order;
 import christmas.domain.order.OrderAmount;
 import christmas.domain.order.dto.AmountDto;
-import christmas.view.OutputView;
+import christmas.view.output.EventView;
 
 public class EventController {
 
-    private final OutputView outputView = new OutputView();
+    private final EventView eventView = new EventView();
 
     private final GiftEvent giftEvent;
 
@@ -29,16 +29,16 @@ public class EventController {
         }
         MenuCategory gift = giftMenu(totalAmount);
 
-        outputView.printDiscountResultIntro();
+        eventView.printDiscountResultIntro();
         Long discount = applyEvent(order, date, gift);
 
-        outputView.printTotalBenefitAmount(discount);
+        eventView.printTotalBenefitAmount(discount);
         return new AmountDto(totalAmount, discount);
     }
 
     private long printTotalAmount(Order order) {
         long totalAmount = OrderAmount.of(order).getTotalAmount();
-        outputView.printTotalAmount(totalAmount);
+        eventView.printTotalAmount(totalAmount);
         return totalAmount;
     }
 
@@ -53,69 +53,69 @@ public class EventController {
     }
 
     private void printEventNothing() {
-        outputView.printGiftMenu(null);
-        outputView.printDiscountResultIntro();
-        outputView.printDiscountEmpty();
-        outputView.printTotalBenefitAmount(0L);
+        eventView.printGiftMenu(null);
+        eventView.printDiscountResultIntro();
+        eventView.printDiscountEmpty();
+        eventView.printTotalBenefitAmount(0L);
     }
 
     private MenuCategory giftMenu(Long totalAmount) {
         if (giftEvent.support(totalAmount)) {
             MenuCategory gift = giftEvent.discount(totalAmount);
-            outputView.printGiftMenu(gift);
+            eventView.printGiftMenu(gift);
             return gift;
         }
-        outputView.printGiftMenu(null);
+        eventView.printGiftMenu(null);
         return null;
     }
 
     private Long d_DayEvent(int date) {
         if (D_DayEvent.DISCOUNT_DAY.support(date)) {
             Long discountAmount = D_DayEvent.DISCOUNT_DAY.discount(date);
-            outputView.printD_DayDiscount(discountAmount);
+            eventView.printD_DayDiscount(discountAmount);
             return discountAmount;
         }
-        outputView.printD_DayDiscount(0L);
+        eventView.printD_DayDiscount(0L);
         return 0L;
     }
 
     private Long weekdayEvent(Order order, int date) {
         if (WeekdayEvent.WEEKDAY_EVENT.support(date)) {
             Long discountAmount = WeekdayEvent.WEEKDAY_EVENT.discount(order);
-            outputView.printWeekdayDiscount(discountAmount);
+            eventView.printWeekdayDiscount(discountAmount);
             return discountAmount;
         }
-        outputView.printWeekdayDiscount(0L);
+        eventView.printWeekdayDiscount(0L);
         return 0L;
     }
 
     private Long weekendEvent(Order order, int date) {
         if (WeekdayEvent.WEEKDAY_EVENT.support(date)) {
             Long discountAmount = WeekdayEvent.WEEKDAY_EVENT.discount(order);
-            outputView.printWeekendDiscount(discountAmount);
+            eventView.printWeekendDiscount(discountAmount);
             return discountAmount;
         }
-        outputView.printWeekendDiscount(0L);
+        eventView.printWeekendDiscount(0L);
         return 0L;
     }
 
     private Long specialEvent(int date) {
         if (SpecialEvent.STAR.support(date)) {
             Long specialDiscount = SpecialEvent.STAR.discount(date);
-            outputView.printSpecialDiscount(specialDiscount);
+            eventView.printSpecialDiscount(specialDiscount);
             return specialDiscount;
         }
-        outputView.printSpecialDiscount(0L);
+        eventView.printSpecialDiscount(0L);
         return 0L;
     }
 
     private Long giftEvent(MenuCategory gift) {
         if (gift == null) {
-            outputView.printGiftDiscount(0L);
+            eventView.printGiftDiscount(0L);
             return 0L;
         }
         long giftDiscount = gift.getPrice();
-        outputView.printGiftDiscount(giftDiscount);
+        eventView.printGiftDiscount(giftDiscount);
         return giftDiscount;
     }
 }

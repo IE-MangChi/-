@@ -1,25 +1,8 @@
-package christmas.view;
+package christmas.view.output;
 
-import christmas.domain.event.designationEvent.BadgeEvent;
 import christmas.domain.menu.MenuCategory;
-import christmas.domain.order.dto.OrderDto;
-import java.util.Map;
-import java.util.Map.Entry;
 
-public class OutputView {
-
-    public void printIntro() {
-        System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
-    }
-
-    public void printMenu(OrderDto orderDto) {
-        Map<MenuCategory, Integer> order = orderDto.order();
-
-        System.out.println("\n<주문 메뉴>");
-        for (Entry<MenuCategory, Integer> entry : order.entrySet()) {
-            System.out.println(entry.getKey().getDish() + " " + entry.getValue() + "개");
-        }
-    }
+public class EventView {
 
     public void printTotalAmount(Long amount) {
         System.out.println("\n<할인 전 총주문 금액>");
@@ -91,23 +74,5 @@ public class OutputView {
             return;
         }
         System.out.println(amount + "원");
-    }
-
-    public void printPreview() {
-        System.out.println("12월 26일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
-    }
-
-    public void printAfterDiscountAmount(Long amount) {
-        System.out.println("\n<할인 후 예상 결제 금액>");
-        System.out.println(amount + "원");
-    }
-
-    public void printBadge(BadgeEvent badge) {
-        System.out.println("\n<12월 이벤트 배지>");
-        if (badge == null) {
-            System.out.println("없음");
-            return;
-        }
-        System.out.println(badge.getBadge());
     }
 }
