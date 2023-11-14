@@ -20,6 +20,7 @@ public class OrderController {
         for (Entry<String, Integer> entry : menus.entrySet()) {
             order.plus(entry.getKey(), entry.getValue());
         }
+        outputView.printPreview();
         outputView.printMenu(order.getOrder());
         return order;
     }

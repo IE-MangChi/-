@@ -73,6 +73,10 @@ public class OutputView {
         System.out.println(amount + "원");
     }
 
+    public void printPreview() {
+        System.out.println("12월 26일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
+    }
+
     public void printAfterDiscountAmount(Long amount) {
         System.out.println("\n<할인 후 예상 결제 금액>");
         System.out.println(amount + "원");
