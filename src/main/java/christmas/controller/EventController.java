@@ -7,6 +7,7 @@ import christmas.domain.event.discountEvent.WeekdayEvent;
 import christmas.domain.menu.MenuCategory;
 import christmas.domain.order.Order;
 import christmas.domain.order.OrderAmount;
+import christmas.domain.order.dto.AmountDto;
 import christmas.view.OutputView;
 
 public class EventController {
@@ -19,18 +20,21 @@ public class EventController {
         this.giftEvent = new GiftEvent();
     }
 
-    public long event(Order order, int date) {
+    public AmountDto event(Order order, int date) {
         long totalAmount = OrderAmount.of(order).getTotalAmount();
+        outputView.printTotalAmount(totalAmount);
 
         if (totalAmount < 10_000) {
             outputView.printGiftMenu(null);
-            return totalAmount;
+            outputView.printDiscountResultIntro();
+            outputView.printDiscountEmpty();
+            outputView.printTotalBenefitAmount(0L);
+            return new AmountDto(totalAmount, 0L);
         }
 
-        MenuCategory gift = giftEvent(totalAmount);
+        MenuCategory gift = giftMenu(totalAmount);
 
         outputView.printDiscountResultIntro();
-
         Long d_DayDiscount = d_DayEvent(date);
         Long weekdayDiscount = weekdayEvent(order, date);
         Long weekendDiscount = weekendEvent(order, date);
@@ -40,12 +44,10 @@ public class EventController {
         Long discount = d_DayDiscount+weekdayDiscount+weekendDiscount+specialDiscount+giftDiscount;
         outputView.printTotalBenefitAmount(discount);
         outputView.printAfterDiscountAmount(totalAmount - discount);
-        return totalAmount - discount;
+        return new AmountDto(totalAmount, discount);
     }
 
-    private MenuCategory giftEvent(Long totalAmount) {
-        outputView.printTotalAmount(totalAmount);
-
+    private MenuCategory giftMenu(Long totalAmount) {
         if (giftEvent.support(totalAmount)) {
             MenuCategory gift = giftEvent.discount(totalAmount);
             outputView.printGiftMenu(gift);
@@ -61,7 +63,7 @@ public class EventController {
             outputView.printD_DayDiscount(discountAmount);
             return discountAmount;
         }
-        return null;
+        return 0L;
     }
 
     private Long weekdayEvent(Order order, int date) {
@@ -70,7 +72,7 @@ public class EventController {
             outputView.printWeekdayDiscount(discountAmount);
             return discountAmount;
         }
-        return null;
+        return 0L;
     }
 
     private Long weekendEvent(Order order, int date) {
@@ -79,7 +81,7 @@ public class EventController {
             outputView.printWeekendDiscount(discountAmount);
             return discountAmount;
         }
-        return null;
+        return 0L;
     }
 
     private Long specialEvent(int date) {
@@ -88,7 +90,7 @@ public class EventController {
             outputView.printSpecialDiscount(specialDiscount);
             return specialDiscount;
         }
-        return null;
+        return 0L;
     }
 
     private Long giftEvent(MenuCategory gift) {
