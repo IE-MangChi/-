@@ -1,6 +1,7 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
+import christmas.exception.ChristmasException;
 import java.util.Map;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
@@ -23,7 +24,7 @@ class InputViewTest extends IOTest{
         systemIn("-1");
         // when && then
         Assertions.assertThatThrownBy(() -> inputView.readDate())
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(ChristmasException.class);
     }
 
     @Test
@@ -33,17 +34,17 @@ class InputViewTest extends IOTest{
         systemIn("32");
         // when && then
         Assertions.assertThatThrownBy(() -> inputView.readDate())
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(ChristmasException.class);
     }
 
     @Test
     @DisplayName("메뉴 주문시 입력 형식에 맞지 않으면 에러를 발생시킨다.")
     void readMenuFormat() {
         // given
-        systemIn("짬뽕-3");
+        systemIn("짬뽕3");
         // when & then
         Assertions.assertThatThrownBy(() -> inputView.readMenu())
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(ChristmasException.class);
     }
 
     @Test
@@ -53,6 +54,6 @@ class InputViewTest extends IOTest{
         systemIn("스파게티-5,마라탕-2,마라탕-3");
         // when & then
         Assertions.assertThatThrownBy(() -> inputView.readMenu())
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(ChristmasException.class);
     }
 }
