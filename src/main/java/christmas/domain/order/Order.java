@@ -3,6 +3,7 @@ package christmas.domain.order;
 import christmas.domain.menu.MenuCategory;
 import christmas.domain.order.dto.OrderDto;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -27,6 +28,14 @@ public class Order {
         throw new IllegalArgumentException(
                 "[ERROR] 메뉴는 한 번에 최대 20개까지만 주문할 수 있습니다.\n"
                         + "(e.g. 시저샐러드-1, 티본스테이크-1, 크리스마스파스타-1, 제로콜라-3, 아이스크림-1의 총개수는 7개)");
+    }
+
+    public int getMenuByMenuNames(List<MenuCategory> menuNames) {
+        int sum = 0;
+        for (MenuCategory menuName : menuNames) {
+            sum += orderItem.get(menuName);
+        }
+        return sum;
     }
 
     private static MenuCategory validateMenu(String menu) {
