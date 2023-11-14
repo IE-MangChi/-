@@ -104,5 +104,9 @@
   - ErrorMessage: 에러 메시지를 담고 있는 클래스
   - ChristmasException: 크리스마스 이벤트 에러를 담당하는 클래스
 - view
-  - InputView: 입력 화면을 담당하는 클래스
-  - OutputView: 출력 화면을 담당하는 클래스
+  - input
+    - InputView: 입력 화면을 담당하는 클래스
+  - output
+    - EventView: 이벤트 출력 뷰를 담당하는 클래스
+    - OrderView: 주문 출력 뷰를 담당하는 클래스
+    - PayView: 지불 출력 뷰를 담당하는 클래스
