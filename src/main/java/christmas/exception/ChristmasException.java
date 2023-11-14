@@ -6,7 +6,6 @@ public class ChristmasException extends IllegalArgumentException {
     }
 
     public static ChristmasException of(ErrorMessage errorMessage) {
-        System.out.println(errorMessage.getMessage());
         return new ChristmasException(errorMessage);
     }
 
