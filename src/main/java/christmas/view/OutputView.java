@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.domain.event.designationEvent.BadgeEvent;
 import christmas.domain.menu.MenuCategory;
 import christmas.domain.order.dto.OrderDto;
 import java.util.Map;
@@ -71,5 +72,10 @@ public class OutputView {
     public void printAfterDiscountAmount(Integer amount) {
         System.out.println("<할인 후 예상 결제 금액>");
         System.out.println(amount + "원");
+    }
+
+    public void printBadge(BadgeEvent badge) {
+        System.out.println("<12월 이벤트 배지>");
+        System.out.println(badge.getBadge());
     }
 }
