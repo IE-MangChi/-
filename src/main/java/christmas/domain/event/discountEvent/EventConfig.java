@@ -1,6 +1,7 @@
 package christmas.domain.event.discountEvent;
 
 import christmas.domain.menu.MenuCategory;
+import java.time.DayOfWeek;
 import java.util.List;
 
 public class EventConfig {
@@ -22,12 +23,12 @@ public class EventConfig {
     protected static final Long SPECIAL_DISCOUNT_AMOUNT = 1_000L;
 
     // 평일 할인
-    protected static final List<String> WEEKDAY_DISCOUNT_DAY_OF_WEEK = List.of("SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY");
+    protected static final List<DayOfWeek> WEEKDAY_DISCOUNT_DAY_OF_WEEK = List.of(DayOfWeek.SUNDAY, DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY);
     protected static final List<MenuCategory> WEEKDAY_DISCOUNT_MENU = List.of(MenuCategory.CHOCO_CAKE, MenuCategory.ICE_CREAM);
     protected static final long WEEKDAY_DISCOUNT_AMOUNT = 2_023;
 
     // 주말 할인
-    protected static final List<String> WEEKEND_DISCOUNT_DAY_OF_WEEK = List.of("FRIDAY", "SATURDAY");
+    protected static final List<DayOfWeek> WEEKEND_DISCOUNT_DAY_OF_WEEK = List.of(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY);
     protected static final List<MenuCategory> WEEKEND_DISCOUNT_MENU = List.of(MenuCategory.CHOCO_CAKE, MenuCategory.ICE_CREAM);
     protected static final long WEEKEND_DISCOUNT_AMOUNT = 2_023;
 }

@@ -9,9 +9,9 @@ public enum WeekdayEvent implements Event<Integer, Long, Order>{
 
     WEEKDAY_EVENT(EventConfig.WEEKDAY_DISCOUNT_DAY_OF_WEEK);
 
-    private List<String> discountWeekOfDay;
+    private List<DayOfWeek> discountWeekOfDay;
 
-    WeekdayEvent(List<String> discountWeekOfDay) {
+    WeekdayEvent(List<DayOfWeek> discountWeekOfDay) {
         this.discountWeekOfDay = discountWeekOfDay;
     }
 
@@ -19,6 +19,7 @@ public enum WeekdayEvent implements Event<Integer, Long, Order>{
     public boolean support(Integer date) {
         LocalDate weekOfDay = LocalDate.of(EventConfig.YEAR, EventConfig.MONTH, date);
         DayOfWeek week = weekOfDay.getDayOfWeek();
+        System.out.println(week);
         return discountWeekOfDay.stream()
                 .anyMatch(day -> day.equals(week));
     }
