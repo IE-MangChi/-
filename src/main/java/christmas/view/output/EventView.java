@@ -28,7 +28,7 @@ public class EventView {
     }
 
     public void printD_DayDiscount(Long amount) {
-        if (amount == 0) {
+        if (isAmountZero(amount)) {
             System.out.println("크리스마스 디데이 할인: 0원");
             return;
         }
@@ -36,7 +36,7 @@ public class EventView {
     }
 
     public void printWeekdayDiscount(Long amount) {
-        if (amount == 0) {
+        if (isAmountZero(amount)) {
             System.out.println("평일 할인: 0원");
             return;
         }
@@ -44,7 +44,7 @@ public class EventView {
     }
 
     public void printWeekendDiscount(Long amount) {
-        if (amount == 0) {
+        if (isAmountZero(amount)) {
             System.out.println("주말 할인: 0원");
             return;
         }
@@ -52,7 +52,7 @@ public class EventView {
     }
 
     public void printSpecialDiscount(Long amount) {
-        if (amount == 0) {
+        if (isAmountZero(amount)) {
             System.out.println("특별 할인: 0원");
             return;
         }
@@ -60,7 +60,7 @@ public class EventView {
     }
 
     public void printGiftDiscount(Long amount) {
-        if (amount == 0) {
+        if (isAmountZero(amount)) {
             System.out.println("증정 이벤트: 0원");
             return;
         }
@@ -74,5 +74,9 @@ public class EventView {
             return;
         }
         System.out.println(amount + "원");
+    }
+
+    private static boolean isAmountZero(Long amount) {
+        return amount == 0;
     }
 }
