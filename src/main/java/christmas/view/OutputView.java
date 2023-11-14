@@ -45,22 +45,42 @@ public class OutputView {
     }
 
     public void printD_DayDiscount(Long amount) {
+        if (amount == 0) {
+            System.out.println("크리스마스 디데이 할인: 0원");
+            return;
+        }
         System.out.println("크리스마스 디데이 할인: -" + amount + "원");
     }
 
     public void printWeekdayDiscount(Long amount) {
+        if (amount == 0) {
+            System.out.println("평일 할인: 0원");
+            return;
+        }
         System.out.println("평일 할인: -" + amount + "원");
     }
 
     public void printWeekendDiscount(Long amount) {
+        if (amount == 0) {
+            System.out.println("주말 할인: 0원");
+            return;
+        }
         System.out.println("주말 할인: -" + amount + "원");
     }
 
     public void printSpecialDiscount(Long amount) {
+        if (amount == 0) {
+            System.out.println("특별 할인: 0원");
+            return;
+        }
         System.out.println("특별 할인: -" + amount + "원");
     }
 
     public void printGiftDiscount(Long amount) {
+        if (amount == 0) {
+            System.out.println("증정 이벤트: 0원");
+            return;
+        }
         System.out.println("증정 이벤트: -" + amount + "원");
     }
 
