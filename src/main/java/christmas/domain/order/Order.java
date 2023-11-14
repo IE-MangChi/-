@@ -18,6 +18,7 @@ public class Order {
     }
 
     public void plus(final String menu, final Integer count) {
+        validateZeroCount(count);
         MenuCategory dish = validateIsInMenu(menu);
         put(dish, count);
         totalQuantity += count;
@@ -54,6 +55,12 @@ public class Order {
     private void validateOrderCount(long totalQuantity) {
         if (totalQuantity >= OrderConfig.MAXIMUM_ORDER_AMOUNT) {
             throw ChristmasException.of(ErrorMessage.MAXIMUM_MENU_QUANTITY_PER_ORDER);
+        }
+    }
+
+    private void validateZeroCount(Integer count) {
+        if (count.equals(0)) {
+            throw ChristmasException.of(ErrorMessage.INVALID_ORDER);
         }
     }
 }
