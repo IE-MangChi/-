@@ -1,4 +1,4 @@
-package christmas.domain.event;
+package christmas.domain.event.discountEvent;
 
 import christmas.domain.menu.MenuCategory;
 import java.util.List;

@@ -1,4 +1,4 @@
-package christmas.domain.event;
+package christmas.domain.event.discountEvent;
 
 public enum D_DayEvent implements Event<Integer, Integer, Integer>{
 

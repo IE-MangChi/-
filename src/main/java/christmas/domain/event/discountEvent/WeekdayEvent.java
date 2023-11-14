@@ -1,16 +1,16 @@
-package christmas.domain.event;
+package christmas.domain.event.discountEvent;
 
 import christmas.domain.order.Order;
 import java.time.LocalDate;
 import java.util.List;
 
-public enum WeekendEvent implements Event<Integer, Long, Order>{
+public enum WeekdayEvent implements Event<Integer, Long, Order>{
 
-    WEEKDAY_EVENT(EventConfig.WEEKEND_DISCOUNT_DAY_OF_WEEK);
+    WEEKDAY_EVENT(EventConfig.WEEKDAY_DISCOUNT_DAY_OF_WEEK);
 
     private List<String> discountWeekOfDay;
 
-    WeekendEvent(List<String> discountWeekOfDay) {
+    WeekdayEvent(List<String> discountWeekOfDay) {
         this.discountWeekOfDay = discountWeekOfDay;
     }
 
@@ -23,7 +23,7 @@ public enum WeekendEvent implements Event<Integer, Long, Order>{
 
     @Override
     public Long discount(Order order) {
-        int discountMenuCount = order.getMenuByMenuNames(EventConfig.WEEKEND_DISCOUNT_MENU);
-        return discountMenuCount * EventConfig.WEEKEND_DISCOUNT_AMOUNT;
+        int discountMenuCount = order.getMenuByMenuNames(EventConfig.WEEKDAY_DISCOUNT_MENU);
+        return discountMenuCount * EventConfig.WEEKDAY_DISCOUNT_AMOUNT;
     }
 }

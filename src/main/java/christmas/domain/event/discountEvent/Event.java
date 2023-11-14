@@ -1,4 +1,4 @@
-package christmas.domain.event;
+package christmas.domain.event.discountEvent;
 
 public interface Event<T, R, E> {
 
