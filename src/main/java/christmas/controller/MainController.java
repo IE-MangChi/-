@@ -1,6 +1,7 @@
 package christmas.controller;
 
 import christmas.domain.order.Order;
+import christmas.domain.order.dto.AmountDto;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
@@ -23,9 +24,8 @@ public class MainController {
         int date = inputView.readDate();
 
         Order order = orderController.order();
-        eventController.event(order, date);
 
-        long discountedAmount = eventController.event(order, date);
+        AmountDto discountedAmount = eventController.event(order, date);
         paymentController.pay(discountedAmount);
     }
 
