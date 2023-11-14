@@ -1,6 +1,6 @@
 package christmas.domain.event.discountEvent;
 
-public enum D_DayEvent implements Event<Integer, Integer, Integer>{
+public enum D_DayEvent implements Event<Integer, Long, Integer>{
 
     DISCOUNT_DAY(EventConfig.START_DATE, EventConfig.END_DATE);
 
@@ -18,7 +18,7 @@ public enum D_DayEvent implements Event<Integer, Integer, Integer>{
     }
 
     @Override
-    public Integer discount(Integer date) {
+    public Long discount(Integer date) {
         return EventConfig.INITAL_DISCOUNT_AMOUNT + EventConfig.DAILY_DISCOUNT_INCREASE * date;
     }
 }
