@@ -60,8 +60,8 @@ public class OutputView {
         System.out.println("특별 할인:: -" + amount + "원");
     }
 
-    public void printGiftDiscount(MenuCategory gift) {
-        System.out.println("증정 이벤트: -" + gift.getPrice() + "원");
+    public void printGiftDiscount(Long amount) {
+        System.out.println("증정 이벤트: -" + amount + "원");
     }
 
     public void printTotalBenefitAmount(Long amount) {
