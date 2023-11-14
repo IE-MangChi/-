@@ -9,17 +9,17 @@ public class EventConfig {
     protected static final int MONTH = 12;
 
     // 디데이 할인
-    protected static final int INITAL_DISCOUNT_AMOUNT = 1_000;
-    protected static final int DAILY_DISCOUNT_INCREASE = 100;
+    protected static final Long INITAL_DISCOUNT_AMOUNT = 1_000L;
+    protected static final Long DAILY_DISCOUNT_INCREASE = 100L;
     protected static final int START_DATE = 1;
     protected static final int END_DATE = 25;
 
     // 증정 이벤트
-    protected static final int MINIMUM_ORDER_AMOUNT_FOR_GIFT_EVENT = 120_000;
+    protected static final Long MINIMUM_ORDER_AMOUNT_FOR_GIFT_EVENT = 120_000L;
 
     // 특별 할인
     protected static final int[] SPECIAL_DISCOUNT_DAY = {3, 10, 17, 24, 25, 31};
-    protected static final Integer SPECIAL_DISCOUNT_AMOUNT = 1_000;
+    protected static final Long SPECIAL_DISCOUNT_AMOUNT = 1_000L;
 
     // 평일 할인
     protected static final List<String> WEEKDAY_DISCOUNT_DAY_OF_WEEK = List.of("SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY");
