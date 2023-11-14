@@ -7,17 +7,22 @@
 ---
 
 ![Generic badge](https://img.shields.io/badge/precourse-week4-green.svg)
-![Generic badge](https://img.shields.io/badge/test-0_passed-blue.svg)
+![Generic badge](https://img.shields.io/badge/test-4_passed-blue.svg)
 ![Generic badge](https://img.shields.io/badge/version-1.0.1-brightgreen.svg)
 
 > 우아한테크코스 6기 4주차 미션, 크리스마스 프로모션을 구현한 저장소입니다.
 
 <br>
-오퍼레이션 등록 예정
+
+<img src="operation1.png">
+
+---
+
+<img src="operation2.png">
 
 # 목차
-등록 예정
-
+- 기능목록
+- 패키지구조
 ---
 
 ## 기능 목록
@@ -45,7 +50,7 @@
 - 메뉴
   - 메뉴는 1개 이상이어야한다
 - 주문
-  - 주문한 메뉴들을 가진다
+  - 음료만 주문할 수 없다
   - 메뉴는 중복되면 안된다
   - 메뉴는 20개까지만 주문 가능
 - 할인 계산기
@@ -69,4 +74,35 @@
 ---
 
 ## 패키지 구조
-등록 예정
+- controller
+  - MainController: 다른 컨트롤러를 중재하는 메인컨트롤러
+  - OrderController: 주문 받는 역할을 하는 컨트롤러
+  - EventController: 할인 이벤트를 적용하는 컨트롤러
+  - PaymentController: 결제를 담당하는 컨트롤러
+- domain
+  - event
+    - designationEvent
+      - EventConfig: 배지 Config를 담는 클래스
+      - BadgeEvent: 배지 이벤트를 담당하는 클래스
+    - discountEvent
+      - EventConfig: 할인 Config를 담는 클래스
+      - GiftEvent: 증정 이벤트를 담당하는 클래스
+      - D_DayEvent: 디데이 이벤트를 담당하는 클래스
+      - SpecialEvent: 특별 할인을 담당하는 클래스
+      - WeekdayEvent: 평일 할인을 담당하는 클래스
+      - WeekendEvent: 주말 할인을 담당하는 클래스
+  - menu
+    - MenuCategory: 메뉴들을 담고 있는 Enum클래스
+  - order
+    - dto
+      - AmountDto: 결제 컨트롤러에 값을 보내는 Dto
+      - OrderDto: 주문 정보 전달을 위한 Dto
+    - Order: 주문 정보를 담고있는 클래스
+    - OrderAmount: 총 주문 금액을 계산하는 클래스
+    - OrderConfig: 주문 Config를 담는 클래스
+- exception
+  - ErrorMessage: 에러 메시지를 담고 있는 클래스
+  - ChristmasException: 크리스마스 이벤트 에러를 담당하는 클래스
+- view
+  - InputView: 입력 화면을 담당하는 클래스
+  - OutputView: 출력 화면을 담당하는 클래스
