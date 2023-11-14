@@ -32,7 +32,7 @@ public class EventController {
         outputView.printDiscountResultIntro();
         Long discount = applyEvent(order, date, gift);
 
-        printDiscountResult(discount, totalAmount);
+        outputView.printTotalBenefitAmount(discount);
         return new AmountDto(totalAmount, discount);
     }
 
@@ -40,11 +40,6 @@ public class EventController {
         long totalAmount = OrderAmount.of(order).getTotalAmount();
         outputView.printTotalAmount(totalAmount);
         return totalAmount;
-    }
-
-    private void printDiscountResult(Long discount, long totalAmount) {
-        outputView.printTotalBenefitAmount(discount);
-        outputView.printAfterDiscountAmount(totalAmount - discount);
     }
 
     private Long applyEvent(Order order, int date, MenuCategory gift) {
@@ -80,6 +75,7 @@ public class EventController {
             outputView.printD_DayDiscount(discountAmount);
             return discountAmount;
         }
+        outputView.printD_DayDiscount(0L);
         return 0L;
     }
 
@@ -89,6 +85,7 @@ public class EventController {
             outputView.printWeekdayDiscount(discountAmount);
             return discountAmount;
         }
+        outputView.printWeekdayDiscount(0L);
         return 0L;
     }
 
@@ -98,6 +95,7 @@ public class EventController {
             outputView.printWeekendDiscount(discountAmount);
             return discountAmount;
         }
+        outputView.printWeekendDiscount(0L);
         return 0L;
     }
 
@@ -107,12 +105,14 @@ public class EventController {
             outputView.printSpecialDiscount(specialDiscount);
             return specialDiscount;
         }
+        outputView.printSpecialDiscount(0L);
         return 0L;
     }
 
     private Long giftEvent(MenuCategory gift) {
         if (gift == null) {
-            return null;
+            outputView.printGiftDiscount(0L);
+            return 0L;
         }
         long giftDiscount = gift.getPrice();
         outputView.printGiftDiscount(giftDiscount);
