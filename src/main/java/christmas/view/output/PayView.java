@@ -1,7 +1,5 @@
 package christmas.view.output;
 
-import christmas.domain.event.designationEvent.BadgeEvent;
-
 public class PayView {
 
     public void printAfterDiscountAmount(final Long amount) {
@@ -9,12 +7,12 @@ public class PayView {
         System.out.printf("%,d원\n", amount);
     }
 
-    public void printBadge(final BadgeEvent badge) {
+    public void printBadge(final String badge) {
         System.out.println("\n<12월 이벤트 배지>");
         if (badge == null) {
             System.out.println("없음");
             return;
         }
-        System.out.println(badge.getBadge());
+        System.out.println(badge);
     }
 }

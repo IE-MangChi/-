@@ -10,6 +10,6 @@ public class PaymentController {
 
     public void pay(final AmountDto amountdto) {
         payView.printAfterDiscountAmount(amountdto.totalAmount() - amountdto.discount());
-        payView.printBadge(BadgeEvent.getBadgeByTotalBenefitAmount(amountdto.discount()));
+        payView.printBadge(BadgeEvent.getBadgeByTotalBenefitAmount(amountdto.discount()).getBadge());
     }
 }
