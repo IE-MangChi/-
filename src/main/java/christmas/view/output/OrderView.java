@@ -1,7 +1,7 @@
 package christmas.view.output;
 
 import christmas.domain.menu.MenuCategory;
-import christmas.domain.order.dto.OrderDto;
+import christmas.domain.order.dto.MenuQuantityDto;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -15,8 +15,8 @@ public class OrderView {
         System.out.println("12월 26일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
     }
 
-    public void printMenu(OrderDto orderDto) {
-        Map<MenuCategory, Integer> order = orderDto.order();
+    public void printMenu(MenuQuantityDto menuQuantityDto) {
+        Map<MenuCategory, Integer> order = menuQuantityDto.order();
 
         System.out.println("\n<주문 메뉴>");
         for (Entry<MenuCategory, Integer> entry : order.entrySet()) {

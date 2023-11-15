@@ -8,7 +8,7 @@ import christmas.domain.event.discountEvent.WeekendEvent;
 import christmas.domain.menu.MenuCategory;
 import christmas.domain.order.Order;
 import christmas.domain.order.OrderAmount;
-import christmas.domain.order.dto.OrderDto;
+import christmas.domain.order.dto.MenuQuantityDto;
 import java.util.Map.Entry;
 
 public class EventService {
@@ -24,7 +24,7 @@ public class EventService {
         return OrderAmount.of(order).getTotalAmount();
     }
 
-    public OrderDto findGiftMenu(Long totalAmount) {
+    public MenuQuantityDto findGiftMenu(Long totalAmount) {
         if (giftEvent.support(totalAmount)) {
             return giftEvent.discount(totalAmount);
         }
@@ -59,7 +59,7 @@ public class EventService {
         return EMPTY_DISCOUNT;
     }
 
-    public Long calculateGiftEvent(OrderDto gifts) {
+    public Long calculateGiftEvent(MenuQuantityDto gifts) {
         if (hasGift(gifts)) {
             return EMPTY_DISCOUNT;
         }
@@ -71,7 +71,7 @@ public class EventService {
         return sum;
     }
 
-    private static boolean hasGift(OrderDto gifts) {
+    private static boolean hasGift(MenuQuantityDto gifts) {
         return gifts == null;
     }
 }

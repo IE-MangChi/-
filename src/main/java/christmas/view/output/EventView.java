@@ -1,7 +1,7 @@
 package christmas.view.output;
 
 import christmas.domain.menu.MenuCategory;
-import christmas.domain.order.dto.OrderDto;
+import christmas.domain.order.dto.MenuQuantityDto;
 import java.util.Map.Entry;
 
 public class EventView {
@@ -11,7 +11,7 @@ public class EventView {
         System.out.printf("%,d원\n", amount);
     }
 
-    public void printGiftMenu(OrderDto gift) {
+    public void printGiftMenu(MenuQuantityDto gift) {
         System.out.println("\n<증정 메뉴>");
         if (gift == null) {
             System.out.println("없음");

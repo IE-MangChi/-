@@ -1,10 +1,8 @@
 package christmas.controller;
 
-import christmas.domain.event.discountEvent.GiftEvent;
-import christmas.domain.menu.MenuCategory;
 import christmas.domain.order.Order;
 import christmas.domain.order.dto.AmountDto;
-import christmas.domain.order.dto.OrderDto;
+import christmas.domain.order.dto.MenuQuantityDto;
 import christmas.service.EventService;
 import christmas.view.output.EventView;
 
@@ -24,7 +22,7 @@ public class EventController {
             printEventNothing();
             return new AmountDto(totalAmount, 0L);
         }
-        OrderDto gifts = giftMenu(totalAmount);
+        MenuQuantityDto gifts = giftMenu(totalAmount);
 
         eventView.printDiscountResultIntro();
         Long eventDiscount = eventBenefitResult(order, date, gifts);
@@ -33,7 +31,7 @@ public class EventController {
         return new AmountDto(totalAmount, eventDiscount);
     }
 
-    private Long eventBenefitResult(Order order, int date, OrderDto gifts) {
+    private Long eventBenefitResult(Order order, int date, MenuQuantityDto gifts) {
         Long D_DayDiscount = printD_DayEventDiscount(date);
         Long weekdayDiscount = printWeekdayEventDiscount(order, date);
         Long weekendDiscount = printWeekendEventDiscount(order, date);
@@ -56,8 +54,8 @@ public class EventController {
         eventView.printTotalBenefitAmount(0L);
     }
 
-    private OrderDto giftMenu(Long totalAmount) {
-        OrderDto gift = eventService.findGiftMenu(totalAmount);
+    private MenuQuantityDto giftMenu(Long totalAmount) {
+        MenuQuantityDto gift = eventService.findGiftMenu(totalAmount);
         eventView.printGiftMenu(gift);
         return gift;
     }
@@ -86,7 +84,7 @@ public class EventController {
         return discount;
     }
 
-    private Long printGiftEventDiscount(OrderDto gifts) {
+    private Long printGiftEventDiscount(MenuQuantityDto gifts) {
         Long discount = eventService.calculateGiftEvent(gifts);
         eventView.printGiftDiscount(discount);
         return discount;

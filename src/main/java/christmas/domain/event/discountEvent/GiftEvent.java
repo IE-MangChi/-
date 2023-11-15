@@ -1,10 +1,10 @@
 package christmas.domain.event.discountEvent;
 
 import christmas.domain.menu.MenuCategory;
-import christmas.domain.order.dto.OrderDto;
+import christmas.domain.order.dto.MenuQuantityDto;
 import java.util.HashMap;
 
-public class GiftEvent implements Event<Long, OrderDto, Long> {
+public class GiftEvent implements Event<Long, MenuQuantityDto, Long> {
 
     private final MenuCategory gift = MenuCategory.CHAMPAGNE;
 
@@ -14,9 +14,9 @@ public class GiftEvent implements Event<Long, OrderDto, Long> {
     }
 
     @Override
-    public OrderDto discount(Long amount) {
+    public MenuQuantityDto discount(Long amount) {
         HashMap<MenuCategory, Integer> giftStore = new HashMap<>();
         giftStore.put(gift, 1);
-        return new OrderDto(giftStore);
+        return new MenuQuantityDto(giftStore);
     }
 }

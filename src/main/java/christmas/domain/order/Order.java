@@ -1,7 +1,7 @@
 package christmas.domain.order;
 
 import christmas.domain.menu.MenuCategory;
-import christmas.domain.order.dto.OrderDto;
+import christmas.domain.order.dto.MenuQuantityDto;
 import christmas.exception.ChristmasException;
 import christmas.exception.ErrorMessage;
 import java.util.HashMap;
@@ -36,8 +36,8 @@ public class Order {
         return sum;
     }
 
-    public OrderDto getOrder() {
-        return new OrderDto(orderItem);
+    public MenuQuantityDto getOrder() {
+        return new MenuQuantityDto(orderItem);
     }
 
     private static MenuCategory validateIsInMenu(String menu) {

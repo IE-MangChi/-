@@ -1,7 +1,7 @@
 package christmas.domain.order;
 
 import christmas.domain.menu.MenuCategory;
-import christmas.domain.order.dto.OrderDto;
+import christmas.domain.order.dto.MenuQuantityDto;
 import christmas.exception.ChristmasException;
 import christmas.exception.ErrorMessage;
 import java.util.Map;
@@ -29,8 +29,8 @@ public class OrderAmount {
         return this.totalAmount;
     }
 
-    private static Map<MenuCategory, Integer> validateOnlyBeverage(OrderDto orderDto) {
-        Map<MenuCategory, Integer> order = orderDto.order();
+    private static Map<MenuCategory, Integer> validateOnlyBeverage(MenuQuantityDto menuQuantityDto) {
+        Map<MenuCategory, Integer> order = menuQuantityDto.order();
         Optional<MenuCategory> findNotBeverage = order.keySet().stream()
                 .filter(menu -> !isBeverage(menu))
                 .findFirst();
