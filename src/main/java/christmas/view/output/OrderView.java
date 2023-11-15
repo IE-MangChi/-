@@ -20,7 +20,7 @@ public class OrderView {
 
         System.out.println("\n<주문 메뉴>");
         for (Entry<MenuCategory, Integer> entry : order.entrySet()) {
-            System.out.println(entry.getKey().getDish() + " " + entry.getValue() + "개");
+            System.out.printf("%s %d개\n", entry.getKey().getDish(), entry.getValue());
         }
     }
 }
