@@ -7,12 +7,15 @@ import java.util.Map.Entry;
 
 public class OrderView {
 
+    private final String WELCOME_MESSAGE = "안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.";
+    private final String EVENT_BENEFIT_PREVIEW = "12월 26일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!";
+
     public void printIntro() {
-        System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
+        System.out.println(WELCOME_MESSAGE);
     }
 
     public void printPreview() {
-        System.out.println("12월 26일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
+        System.out.println(EVENT_BENEFIT_PREVIEW);
     }
 
     public void printMenu(final MenuQuantityDto menuQuantityDto) {
