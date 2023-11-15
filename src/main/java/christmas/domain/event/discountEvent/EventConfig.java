@@ -2,6 +2,7 @@ package christmas.domain.event.discountEvent;
 
 import christmas.domain.menu.MenuCategory;
 import java.time.DayOfWeek;
+import java.time.Instant;
 import java.util.List;
 
 public class EventConfig {
@@ -19,7 +20,7 @@ public class EventConfig {
     public static final Long MINIMUM_ORDER_AMOUNT_FOR_GIFT_EVENT = 120_000L;
 
     // 특별 할인
-    public static final int[] SPECIAL_DISCOUNT_DAY = {3, 10, 17, 24, 25, 31};
+    public static final List<Integer> SPECIAL_DISCOUNT_DAY = List.of(3, 10, 17, 24, 25, 31);
     public static final Long SPECIAL_DISCOUNT_AMOUNT = 1_000L;
 
     // 평일 할인

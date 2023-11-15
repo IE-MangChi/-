@@ -12,11 +12,11 @@ public class OrderAmount {
 
     private final long totalAmount;
 
-    private OrderAmount(long totalAmount) {
+    private OrderAmount(final long totalAmount) {
         this.totalAmount = totalAmount;
     }
 
-    public static OrderAmount of(Order order) {
+    public static OrderAmount of(final Order order) {
         Map<MenuCategory, Integer> orderData = validateOnlyBeverage(order.getOrder());
         long sum = 0;
         for (Entry<MenuCategory, Integer> entry : orderData.entrySet()) {
@@ -25,7 +25,7 @@ public class OrderAmount {
         return new OrderAmount(sum);
     }
 
-    private static Map<MenuCategory, Integer> validateOnlyBeverage(MenuQuantityDto menuQuantityDto) {
+    private static Map<MenuCategory, Integer> validateOnlyBeverage(final MenuQuantityDto menuQuantityDto) {
         Map<MenuCategory, Integer> order = menuQuantityDto.order();
         Optional<MenuCategory> findNotBeverage = order.keySet().stream().filter(menu -> !isBeverage(menu)).findFirst();
         if (findNotBeverage.isEmpty()) {
@@ -34,7 +34,7 @@ public class OrderAmount {
         return order;
     }
 
-    private static boolean isBeverage(MenuCategory menu) {
+    private static boolean isBeverage(final MenuCategory menu) {
         return menu.equals(MenuCategory.CHAMPAGNE) | menu.equals(MenuCategory.ZERO_COLA) | menu.equals(
                 MenuCategory.RED_WINE);
     }

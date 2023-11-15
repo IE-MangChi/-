@@ -28,13 +28,13 @@ public enum MenuCategory {
     private final String dish;
     private final long price;
 
-    MenuCategory(String dish, int price) {
+    MenuCategory(final String dish, final int price) {
         this.dish = dish;
         this.price = price;
     }
 
 
-    public static Optional<MenuCategory> getDishDataByName(String menuName) {
+    public static Optional<MenuCategory> getDishDataByName(final String menuName) {
         return Arrays.stream(MenuCategory.values()).filter(menuCategory -> menuCategory.dish.equals(menuName))
                 .findFirst();
     }

@@ -8,6 +8,7 @@ import christmas.domain.event.discountEvent.WeekendEvent;
 import christmas.domain.menu.MenuCategory;
 import christmas.domain.order.Order;
 import christmas.domain.order.OrderAmount;
+import christmas.domain.order.Planner;
 import christmas.domain.order.dto.MenuQuantityDto;
 import java.util.Map.Entry;
 
@@ -20,46 +21,46 @@ public class EventService {
         this.giftEvent = new GiftEvent();
     }
 
-    public Long calculateTotalAmount(Order order) {
-        return OrderAmount.of(order).getTotalAmount();
+    public Long calculateTotalAmount(final Planner planner) {
+        return planner.getTotalAmount();
     }
 
-    public MenuQuantityDto findGiftMenu(Long totalAmount) {
-        if (giftEvent.support(totalAmount)) {
-            return giftEvent.discount(totalAmount);
+    public MenuQuantityDto findGiftMenu(final Planner planner) {
+        if (giftEvent.support(planner)) {
+            return giftEvent.discount(planner);
         }
         return null;
     }
 
-    public Long calculateD_DayEvent(int date) {
-        if (D_DayEvent.DISCOUNT_DAY.support(date)) {
-            return D_DayEvent.DISCOUNT_DAY.discount(date);
+    public Long calculateD_DayEvent(final Planner planner) {
+        if (D_DayEvent.DISCOUNT_DAY.support(planner)) {
+            return D_DayEvent.DISCOUNT_DAY.discount(planner);
         }
         return EMPTY_DISCOUNT;
     }
 
-    public Long calculateWeekdayEvent(Order order, int date) {
-        if (WeekdayEvent.WEEKDAY_EVENT.support(date)) {
-            return WeekdayEvent.WEEKDAY_EVENT.discount(order);
+    public Long calculateWeekdayEvent(final Planner planner) {
+        if (WeekdayEvent.WEEKDAY_EVENT.support(planner)) {
+            return WeekdayEvent.WEEKDAY_EVENT.discount(planner);
         }
         return EMPTY_DISCOUNT;
     }
 
-    public Long calculateWeekendEvent(Order order, int date) {
-        if (WeekendEvent.WEEKEND_EVENT.support(date)) {
-            return WeekendEvent.WEEKEND_EVENT.discount(order);
+    public Long calculateWeekendEvent(final Planner planner) {
+        if (WeekendEvent.WEEKEND_EVENT.support(planner)) {
+            return WeekendEvent.WEEKEND_EVENT.discount(planner);
         }
         return EMPTY_DISCOUNT;
     }
 
-    public Long calculateSpecialEvent(int date) {
-        if (SpecialEvent.STAR.support(date)) {
-            return SpecialEvent.STAR.discount(date);
+    public Long calculateSpecialEvent(final Planner planner) {
+        if (SpecialEvent.STAR.support(planner)) {
+            return SpecialEvent.STAR.discount(planner);
         }
         return EMPTY_DISCOUNT;
     }
 
-    public Long calculateGiftEvent(MenuQuantityDto gifts) {
+    public Long calculateGiftEvent(final MenuQuantityDto gifts) {
         if (hasGift(gifts)) {
             return EMPTY_DISCOUNT;
         }
@@ -71,7 +72,7 @@ public class EventService {
         return sum;
     }
 
-    private static boolean hasGift(MenuQuantityDto gifts) {
+    private static boolean hasGift(final MenuQuantityDto gifts) {
         return gifts == null;
     }
 }

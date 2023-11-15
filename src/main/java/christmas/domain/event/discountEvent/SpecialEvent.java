@@ -1,27 +1,28 @@
 package christmas.domain.event.discountEvent;
 
+import christmas.domain.order.Planner;
 import java.util.Arrays;
+import java.util.List;
 
-public enum SpecialEvent implements Event<Integer, Long, Integer>{
+public enum SpecialEvent implements Event<Planner, Long> {
 
     STAR(EventConfig.SPECIAL_DISCOUNT_DAY);
 
-    private int[] dayWithStar;
+    private final List<Integer> dayWithStar;
 
-    SpecialEvent(int... dayWithStar) {
+    SpecialEvent(final List<Integer> dayWithStar) {
         this.dayWithStar = dayWithStar;
     }
 
 
-
     @Override
-    public boolean support(Integer date) {
-        return Arrays.stream(dayWithStar)
-                .anyMatch(dayWithStar -> dayWithStar == date);
+    public boolean support(final Planner planner) {
+        return dayWithStar.stream()
+                .anyMatch(day -> day == planner.getDate());
     }
 
     @Override
-    public Long discount(Integer date) {
+    public Long discount(final Planner planner) {
         return EventConfig.SPECIAL_DISCOUNT_AMOUNT;
     }
 }

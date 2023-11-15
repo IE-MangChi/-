@@ -15,7 +15,7 @@ public class OrderView {
         System.out.println("12월 26일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
     }
 
-    public void printMenu(MenuQuantityDto menuQuantityDto) {
+    public void printMenu(final MenuQuantityDto menuQuantityDto) {
         Map<MenuCategory, Integer> order = menuQuantityDto.order();
 
         System.out.println("\n<주문 메뉴>");

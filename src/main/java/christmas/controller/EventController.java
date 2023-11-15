@@ -1,6 +1,6 @@
 package christmas.controller;
 
-import christmas.domain.order.Order;
+import christmas.domain.order.Planner;
 import christmas.domain.order.dto.AmountDto;
 import christmas.domain.order.dto.MenuQuantityDto;
 import christmas.service.EventService;
@@ -15,34 +15,33 @@ public class EventController {
         this.eventService = new EventService();
     }
 
-    public AmountDto event(Order order, int date) {
-        Long totalAmount = printTotalAmount(order);
-
+    public AmountDto event(final Planner planner) {
+        Long totalAmount = printTotalAmount(planner);
         if (totalAmount < 10_000) {
             printEventNothing();
             return new AmountDto(totalAmount, 0L);
         }
-        MenuQuantityDto gifts = giftMenu(totalAmount);
+
+        MenuQuantityDto gifts = giftMenu(planner);
 
         eventView.printDiscountResultIntro();
-        Long eventDiscount = eventBenefitResult(order, date, gifts);
+        Long eventDiscount = eventBenefitResult(planner, gifts);
         eventView.printTotalBenefitAmount(eventDiscount);
-
         return new AmountDto(totalAmount, eventDiscount);
     }
 
-    private Long eventBenefitResult(Order order, int date, MenuQuantityDto gifts) {
-        Long D_DayDiscount = printD_DayEventDiscount(date);
-        Long weekdayDiscount = printWeekdayEventDiscount(order, date);
-        Long weekendDiscount = printWeekendEventDiscount(order, date);
-        Long specialDiscount = printSpecialEventDiscount(date);
+    private Long eventBenefitResult(final Planner planner, final MenuQuantityDto gifts) {
+        Long D_DayDiscount = printD_DayEventDiscount(planner);
+        Long weekdayDiscount = printWeekdayEventDiscount(planner);
+        Long weekendDiscount = printWeekendEventDiscount(planner);
+        Long specialDiscount = printSpecialEventDiscount(planner);
         Long giftDiscount = printGiftEventDiscount(gifts);
 
         return D_DayDiscount + weekdayDiscount + weekendDiscount + specialDiscount + giftDiscount;
     }
 
-    private Long printTotalAmount(Order order) {
-        Long totalAmount = eventService.calculateTotalAmount(order);
+    private Long printTotalAmount(final Planner planner) {
+        Long totalAmount = eventService.calculateTotalAmount(planner);
         eventView.printTotalAmount(totalAmount);
         return totalAmount;
     }
@@ -54,37 +53,37 @@ public class EventController {
         eventView.printTotalBenefitAmount(0L);
     }
 
-    private MenuQuantityDto giftMenu(Long totalAmount) {
-        MenuQuantityDto gift = eventService.findGiftMenu(totalAmount);
+    private MenuQuantityDto giftMenu(final Planner planner) {
+        MenuQuantityDto gift = eventService.findGiftMenu(planner);
         eventView.printGiftMenu(gift);
         return gift;
     }
 
-    private Long printD_DayEventDiscount(int date) {
-        Long discount = eventService.calculateD_DayEvent(date);
+    private Long printD_DayEventDiscount(final Planner planner) {
+        Long discount = eventService.calculateD_DayEvent(planner);
         eventView.printD_DayDiscount(discount);
         return discount;
     }
 
-    private Long printWeekdayEventDiscount(Order order, int date) {
-        Long discount = eventService.calculateWeekdayEvent(order, date);
+    private Long printWeekdayEventDiscount(final Planner planner) {
+        Long discount = eventService.calculateWeekdayEvent(planner);
         eventView.printWeekdayDiscount(discount);
         return discount;
     }
 
-    private Long printWeekendEventDiscount(Order order, int date) {
-        Long discount = eventService.calculateWeekendEvent(order, date);
+    private Long printWeekendEventDiscount(final Planner planner) {
+        Long discount = eventService.calculateWeekendEvent(planner);
         eventView.printWeekendDiscount(discount);
         return discount;
     }
 
-    private Long printSpecialEventDiscount(int date) {
-        Long discount = eventService.calculateSpecialEvent(date);
+    private Long printSpecialEventDiscount(final Planner planner) {
+        Long discount = eventService.calculateSpecialEvent(planner);
         eventView.printSpecialDiscount(discount);
         return discount;
     }
 
-    private Long printGiftEventDiscount(MenuQuantityDto gifts) {
+    private Long printGiftEventDiscount(final MenuQuantityDto gifts) {
         Long discount = eventService.calculateGiftEvent(gifts);
         eventView.printGiftDiscount(discount);
         return discount;

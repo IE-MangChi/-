@@ -1,11 +1,11 @@
 package christmas.exception;
 
 public class ChristmasException extends IllegalArgumentException {
-    private ChristmasException(ErrorMessage errorMessage) {
+    private ChristmasException(final ErrorMessage errorMessage) {
         super(errorMessage.getMessage());
     }
 
-    public static ChristmasException of(ErrorMessage errorMessage) {
+    public static ChristmasException of(final ErrorMessage errorMessage) {
         return new ChristmasException(errorMessage);
     }
 

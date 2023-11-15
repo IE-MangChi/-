@@ -33,7 +33,7 @@ public class InputView {
         }
     }
 
-    private void validateDate(String input) {
+    private void validateDate(final String input) {
         if (!datePattern.matcher(input).matches()) {
             throw ChristmasException.of(ErrorMessage.INVALID_DATE);
         }

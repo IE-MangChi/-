@@ -4,6 +4,7 @@ import static christmas.domain.menu.MenuCategory.TAPAS;
 import static christmas.domain.menu.MenuCategory.ZERO_COLA;
 
 import christmas.domain.menu.MenuCategory;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.assertj.core.api.Assertions;
@@ -16,10 +17,11 @@ class OrderTest {
     @DisplayName("정상적인 메뉴 주문시 orderItem 저장소에 담겨야한다.")
     void menuOrderResultTest() {
         // given
-        Order order = new Order();
+        HashMap<String, Integer> menus = new HashMap<>();
+        menus.put("타파스", 2);
+        menus.put("제로콜라", 1);
         // when
-        order.plus("타파스", 2);
-        order.plus("제로콜라", 1);
+        Order order = Order.of(menus);
         Map<MenuCategory, Integer> store = order.getOrder().order();
         // then
         Assertions.assertThat(store.get(TAPAS)).isEqualTo(2);
@@ -30,9 +32,11 @@ class OrderTest {
     @DisplayName("비정상적인 메뉴 주문시 에러를 발생시켜야한다.")
     void wrongMenuOrderResultTest() {
         // given
-        Order order = new Order();
+        HashMap<String, Integer> menus = new HashMap<>();
+        menus.put("타파스", 2);
+        menus.put("뿌슝뿌슝", 1);
         // when && then
-        Assertions.assertThatThrownBy(() -> order.plus("뿌쓩뿌쓩",2))
+        Assertions.assertThatThrownBy(() -> Order.of(menus))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -40,9 +44,12 @@ class OrderTest {
     @DisplayName("20개 초과하는 메뉴를 주문시 에러를 발생시켜야한다.")
     void menuOrderResultOverTest() {
         // given
-        Order order = new Order();
+        HashMap<String, Integer> menus = new HashMap<>();
+        menus.put("타파스", 2);
+        menus.put("제로콜라", 10);
+        menus.put("티본스테이크", 10);
         // when && then
-        Assertions.assertThatThrownBy(() -> order.plus("뿌쓩뿌쓩",25))
+        Assertions.assertThatThrownBy(() -> Order.of(menus))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -50,13 +57,14 @@ class OrderTest {
     @DisplayName("메뉴 리스트를 넘기면 총 주문 개수 합을 반환해야한다.")
     void getMenuByMenuNamesTest() {
         // given
-        Order order = new Order();
-        order.plus("제로콜라",3);
-        order.plus("타파스",7);
+        HashMap<String, Integer> menus = new HashMap<>();
+        menus.put("타파스", 2);
+        menus.put("제로콜라", 10);
+        Order order = Order.of(menus);
         // when
-        List<MenuCategory> menus = List.of(ZERO_COLA, TAPAS);
-        int count = order.getMenuByMenuNames(menus);
+        List<MenuCategory> cola = List.of(ZERO_COLA, TAPAS);
+        int count = order.getMenuCountByMenuNames(cola);
         // then
-        Assertions.assertThat(count).isEqualTo(10);
+        Assertions.assertThat(count).isEqualTo(12);
     }
 }

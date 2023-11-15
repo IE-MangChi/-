@@ -1,41 +1,41 @@
 package christmas.controller;
 
-import christmas.domain.order.Order;
+import christmas.domain.order.Planner;
 import christmas.exception.ChristmasException;
 import christmas.exception.ErrorMessage;
 import christmas.view.input.InputView;
 import christmas.view.output.OrderView;
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class OrderController {
 
     private final InputView inputView = new InputView();
     private final OrderView orderView = new OrderView();
 
-    public Order order() {
-        Order order = makeOrder();
+    public Planner order() {
+        int date = inputVisitDate();
+        Planner planner = makeOrder(date);
         orderView.printPreview();
-        orderView.printMenu(order.getOrder());
-        return order;
+        orderView.printMenu(planner.getOrder());
+        return planner;
     }
 
-    private Order makeOrder() {
+    private Planner makeOrder(int date) {
         try {
-            Map<String, Integer> menus = inputMenuOrder();
-            return checkOrder(menus);
+            return Planner.of(inputMenuOrder(), date);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            return makeOrder();
+            return makeOrder(date);
         }
     }
 
-    private static Order checkOrder(Map<String, Integer> menus) {
-        Order order = new Order();
-        for (Entry<String, Integer> entry : menus.entrySet()) {
-            order.plus(entry.getKey(), entry.getValue());
+    private int inputVisitDate() {
+        try {
+            return inputView.readDate();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return inputVisitDate();
         }
-        return order;
     }
 
     private Map<String, Integer> inputMenuOrder() {
