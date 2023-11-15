@@ -1,18 +1,22 @@
 package christmas.domain.event.discountEvent;
 
 import christmas.domain.menu.MenuCategory;
+import christmas.domain.order.dto.OrderDto;
+import java.util.HashMap;
 
-public class GiftEvent implements Event<Long, MenuCategory, Long>{
+public class GiftEvent implements Event<Long, OrderDto, Long> {
+
+    private final MenuCategory gift = MenuCategory.CHAMPAGNE;
+
     @Override
     public boolean support(Long OrderAmountBeforeDiscount) {
-        if (OrderAmountBeforeDiscount > EventConfig.MINIMUM_ORDER_AMOUNT_FOR_GIFT_EVENT ) {
-            return true;
-        }
-        return false;
+        return OrderAmountBeforeDiscount > EventConfig.MINIMUM_ORDER_AMOUNT_FOR_GIFT_EVENT;
     }
 
     @Override
-    public MenuCategory discount(Long amount) {
-        return MenuCategory.CHAMPAGNE;
+    public OrderDto discount(Long amount) {
+        HashMap<MenuCategory, Integer> giftStore = new HashMap<>();
+        giftStore.put(gift, 1);
+        return new OrderDto(giftStore);
     }
 }

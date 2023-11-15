@@ -1,7 +1,8 @@
 package christmas.view.output;
 
 import christmas.domain.menu.MenuCategory;
-import java.text.DecimalFormat;
+import christmas.domain.order.dto.OrderDto;
+import java.util.Map.Entry;
 
 public class EventView {
 
@@ -10,13 +11,15 @@ public class EventView {
         System.out.printf("%,d원\n", amount);
     }
 
-    public void printGiftMenu(MenuCategory gift) {
+    public void printGiftMenu(OrderDto gift) {
         System.out.println("\n<증정 메뉴>");
         if (gift == null) {
             System.out.println("없음");
             return;
         }
-        System.out.println(gift.getDish() + " 1개");
+        for (Entry<MenuCategory, Integer> gifts : gift.order().entrySet()) {
+            System.out.printf("%s %d개\n", gifts.getKey().getDish(), gifts.getValue());
+        }
     }
 
     public void printDiscountResultIntro() {

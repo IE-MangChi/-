@@ -8,6 +8,8 @@ import christmas.domain.event.discountEvent.WeekendEvent;
 import christmas.domain.menu.MenuCategory;
 import christmas.domain.order.Order;
 import christmas.domain.order.OrderAmount;
+import christmas.domain.order.dto.OrderDto;
+import java.util.Map.Entry;
 
 public class EventService {
     private final Long EMPTY_DISCOUNT = 0L;
@@ -18,15 +20,11 @@ public class EventService {
         this.giftEvent = new GiftEvent();
     }
 
-    private static boolean hasGift(MenuCategory gift) {
-        return gift == null;
-    }
-
     public Long calculateTotalAmount(Order order) {
         return OrderAmount.of(order).getTotalAmount();
     }
 
-    public MenuCategory findGiftMenu(Long totalAmount) {
+    public OrderDto findGiftMenu(Long totalAmount) {
         if (giftEvent.support(totalAmount)) {
             return giftEvent.discount(totalAmount);
         }
@@ -61,10 +59,19 @@ public class EventService {
         return EMPTY_DISCOUNT;
     }
 
-    public Long calculateGiftEvent(MenuCategory gift) {
-        if (hasGift(gift)) {
+    public Long calculateGiftEvent(OrderDto gifts) {
+        if (hasGift(gifts)) {
             return EMPTY_DISCOUNT;
         }
-        return gift.getPrice();
+
+        Long sum = 0L;
+        for (Entry<MenuCategory, Integer> giftStore : gifts.order().entrySet()) {
+            sum += giftStore.getKey().getPrice() * giftStore.getValue();
+        }
+        return sum;
+    }
+
+    private static boolean hasGift(OrderDto gifts) {
+        return gifts == null;
     }
 }
