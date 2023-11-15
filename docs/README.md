@@ -103,6 +103,8 @@
 - exception
   - ErrorMessage: 에러 메시지를 담고 있는 클래스
   - ChristmasException: 크리스마스 이벤트 에러를 담당하는 클래스
+- service
+  - EventService: 할인 이벤트 로직을 담당하는 서비스 클래스
 - view
   - input
     - InputView: 입력 화면을 담당하는 클래스
