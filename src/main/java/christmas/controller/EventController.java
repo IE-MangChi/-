@@ -8,16 +8,18 @@ import christmas.domain.menu.MenuCategory;
 import christmas.domain.order.Order;
 import christmas.domain.order.OrderAmount;
 import christmas.domain.order.dto.AmountDto;
+import christmas.service.EventService;
 import christmas.view.output.EventView;
 
 public class EventController {
 
     private final EventView eventView = new EventView();
-
+    private final EventService eventService;
     private final GiftEvent giftEvent;
 
     public EventController() {
         this.giftEvent = new GiftEvent();
+        this.eventService = new EventService();
     }
 
     public AmountDto event(Order order, int date) {
@@ -30,26 +32,26 @@ public class EventController {
         MenuCategory gift = giftMenu(totalAmount);
 
         eventView.printDiscountResultIntro();
-        Long discount = applyEvent(order, date, gift);
+        Long eventDiscount = eventBenefitResult(order, date, gift);
+        eventView.printTotalBenefitAmount(eventDiscount);
 
-        eventView.printTotalBenefitAmount(discount);
-        return new AmountDto(totalAmount, discount);
+        return new AmountDto(totalAmount, eventDiscount);
+    }
+
+    private Long eventBenefitResult(Order order, int date, MenuCategory gift) {
+        Long D_DayDiscount = printD_DayEventDiscount(date);
+        Long weekdayDiscount = printWeekdayEventDiscount(order, date);
+        Long weekendDiscount = printWeekendEventDiscount(order, date);
+        Long specialDiscount = printSpecialEventDiscount(order, date);
+        Long giftDiscount = printGiftEventDiscount(gift);
+
+        return D_DayDiscount + weekdayDiscount + weekendDiscount + specialDiscount + giftDiscount;
     }
 
     private long printTotalAmount(Order order) {
         long totalAmount = OrderAmount.of(order).getTotalAmount();
         eventView.printTotalAmount(totalAmount);
         return totalAmount;
-    }
-
-    private Long applyEvent(Order order, int date, MenuCategory gift) {
-        Long d_DayDiscount = d_DayEvent(date);
-        Long weekdayDiscount = weekdayEvent(order, date);
-        Long weekendDiscount = weekendEvent(order, date);
-        Long specialDiscount = specialEvent(date);
-        Long giftDiscount = giftEvent(gift);
-
-        return d_DayDiscount + weekdayDiscount + weekendDiscount + specialDiscount + giftDiscount;
     }
 
     private void printEventNothing() {
@@ -60,62 +62,38 @@ public class EventController {
     }
 
     private MenuCategory giftMenu(Long totalAmount) {
-        if (giftEvent.support(totalAmount)) {
-            MenuCategory gift = giftEvent.discount(totalAmount);
-            eventView.printGiftMenu(gift);
-            return gift;
-        }
-        eventView.printGiftMenu(null);
-        return null;
+        MenuCategory gift = eventService.giftMenu(totalAmount);
+        eventView.printGiftMenu(gift);
+        return gift;
     }
 
-    private Long d_DayEvent(int date) {
-        if (D_DayEvent.DISCOUNT_DAY.support(date)) {
-            Long discountAmount = D_DayEvent.DISCOUNT_DAY.discount(date);
-            eventView.printD_DayDiscount(discountAmount);
-            return discountAmount;
-        }
-        eventView.printD_DayDiscount(0L);
-        return 0L;
+    private Long printD_DayEventDiscount(int date) {
+        Long discount = eventService.d_DayEvent(date);
+        eventView.printD_DayDiscount(discount);
+        return discount;
     }
 
-    private Long weekdayEvent(Order order, int date) {
-        if (WeekdayEvent.WEEKDAY_EVENT.support(date)) {
-            Long discountAmount = WeekdayEvent.WEEKDAY_EVENT.discount(order);
-            eventView.printWeekdayDiscount(discountAmount);
-            return discountAmount;
-        }
-        eventView.printWeekdayDiscount(0L);
-        return 0L;
+    private Long printWeekdayEventDiscount(Order order, int date) {
+        Long discount = eventService.weekdayEvent(order,date);
+        eventView.printWeekdayDiscount(discount);
+        return discount;
     }
 
-    private Long weekendEvent(Order order, int date) {
-        if (WeekdayEvent.WEEKDAY_EVENT.support(date)) {
-            Long discountAmount = WeekdayEvent.WEEKDAY_EVENT.discount(order);
-            eventView.printWeekendDiscount(discountAmount);
-            return discountAmount;
-        }
-        eventView.printWeekendDiscount(0L);
-        return 0L;
+    private Long printWeekendEventDiscount(Order order, int date) {
+        Long discount = eventService.weekendEvent(order,date);
+        eventView.printWeekendDiscount(discount);
+        return discount;
     }
 
-    private Long specialEvent(int date) {
-        if (SpecialEvent.STAR.support(date)) {
-            Long specialDiscount = SpecialEvent.STAR.discount(date);
-            eventView.printSpecialDiscount(specialDiscount);
-            return specialDiscount;
-        }
-        eventView.printSpecialDiscount(0L);
-        return 0L;
+    private Long printSpecialEventDiscount(Order order, int date) {
+        Long discount = eventService.specialEvent(date);
+        eventView.printSpecialDiscount(discount);
+        return discount;
     }
 
-    private Long giftEvent(MenuCategory gift) {
-        if (gift == null) {
-            eventView.printGiftDiscount(0L);
-            return 0L;
-        }
-        long giftDiscount = gift.getPrice();
-        eventView.printGiftDiscount(giftDiscount);
-        return giftDiscount;
+    private Long printGiftEventDiscount(MenuCategory gift) {
+        Long discount = eventService.giftEvent(gift);
+        eventView.printGiftDiscount(discount);
+        return discount;
     }
 }
