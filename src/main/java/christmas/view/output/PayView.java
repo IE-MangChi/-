@@ -6,7 +6,7 @@ public class PayView {
 
     public void printAfterDiscountAmount(Long amount) {
         System.out.println("\n<할인 후 예상 결제 금액>");
-        System.out.printf("%,d원", amount);
+        System.out.printf("%,d원\n", amount);
     }
 
     public void printBadge(BadgeEvent badge) {
