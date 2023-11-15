@@ -73,11 +73,15 @@ public class EventView {
 
     public void printTotalBenefitAmount(Long amount) {
         System.out.println("\n<총혜택 금액>");
-        if (amount > 0) {
+        if (isAmountOverZero(amount)) {
             System.out.printf("-%,d원\n",amount);
             return;
         }
         System.out.printf("%,d원\n",amount);
+    }
+
+    private static boolean isAmountOverZero(Long amount) {
+        return amount > 0;
     }
 
     private static boolean isAmountZero(Long amount) {
