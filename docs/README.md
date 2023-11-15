@@ -100,6 +100,7 @@
     - Order: 주문 정보를 담고있는 클래스
     - OrderAmount: 총 주문 금액을 계산하는 클래스
     - OrderConfig: 주문 Config를 담는 클래스
+    - Planner: 주문 정보와 날짜를 담는 클래스
 - exception
   - ErrorMessage: 에러 메시지를 담고 있는 클래스
   - ChristmasException: 크리스마스 이벤트 에러를 담당하는 클래스
