@@ -4,6 +4,7 @@ import static christmas.domain.menu.MenuCategory.TAPAS;
 import static christmas.domain.menu.MenuCategory.ZERO_COLA;
 
 import christmas.domain.menu.MenuCategory;
+import christmas.exception.ChristmasException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,5 +67,15 @@ class OrderTest {
         int count = order.getMenuCountByMenuNames(cola);
         // then
         Assertions.assertThat(count).isEqualTo(12);
+    }
+
+    @Test
+    @DisplayName("메뉴의 개수는 1개 이상어야한다.")
+    void orderZeroTest() {
+        // given
+        Map<String, Integer> menus = Map.of("아이스크림",0, "시저샐러드",2);
+        // when && then
+        Assertions.assertThatThrownBy(() -> Order.of(menus))
+                .isInstanceOf(ChristmasException.class).hasMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
 }

@@ -1,5 +1,6 @@
 package christmas.domain.order;
 
+import christmas.exception.ChristmasException;
 import java.util.HashMap;
 import java.util.Map;
 import org.assertj.core.api.Assertions;
@@ -19,6 +20,17 @@ class OrderAmountTest {
         Planner planner = Planner.of(menus, 24);
         // then
         Assertions.assertThat(planner.getTotalAmount()).isEqualTo(110_000+6_000);
+    }
+
+    @Test
+    @DisplayName("음료만 주문할시 주문은 성사될수없다.")
+    void onlyBeverageTest() {
+        // given
+        Map<String, Integer> menus = Map.of("제로콜라",2,"샴페인",3);
+        int date = 23;
+        // when && then
+        Assertions.assertThatThrownBy(() -> Planner.of(menus, date))
+                .isInstanceOf(ChristmasException.class).hasMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
 
 }
