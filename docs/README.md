@@ -96,7 +96,7 @@
   - order
     - dto
       - AmountDto: 결제 컨트롤러에 값을 보내는 Dto
-      - OrderDto: 주문 정보 전달을 위한 Dto
+      - MenuQuantityDto: 메뉴와 메뉴 개수들을 전달하기 위한 Dto
     - Order: 주문 정보를 담고있는 클래스
     - OrderAmount: 총 주문 금액을 계산하는 클래스
     - OrderConfig: 주문 Config를 담는 클래스
