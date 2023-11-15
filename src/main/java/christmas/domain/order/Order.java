@@ -61,10 +61,6 @@ public class Order {
         return sum;
     }
 
-    private void put(final MenuCategory menuCategory, final Integer count) {
-        orderItem.put(menuCategory, count);
-    }
-
     public MenuQuantityDto getOrder() {
         return new MenuQuantityDto(orderItem);
     }
