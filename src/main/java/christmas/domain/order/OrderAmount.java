@@ -25,15 +25,9 @@ public class OrderAmount {
         return new OrderAmount(sum);
     }
 
-    public long getTotalAmount() {
-        return this.totalAmount;
-    }
-
     private static Map<MenuCategory, Integer> validateOnlyBeverage(MenuQuantityDto menuQuantityDto) {
         Map<MenuCategory, Integer> order = menuQuantityDto.order();
-        Optional<MenuCategory> findNotBeverage = order.keySet().stream()
-                .filter(menu -> !isBeverage(menu))
-                .findFirst();
+        Optional<MenuCategory> findNotBeverage = order.keySet().stream().filter(menu -> !isBeverage(menu)).findFirst();
         if (findNotBeverage.isEmpty()) {
             throw ChristmasException.of(ErrorMessage.INVALID_ORDER);
         }
@@ -41,7 +35,11 @@ public class OrderAmount {
     }
 
     private static boolean isBeverage(MenuCategory menu) {
-        return menu.equals(MenuCategory.CHAMPAGNE) | menu.equals(MenuCategory.ZERO_COLA)
-                | menu.equals(MenuCategory.RED_WINE);
+        return menu.equals(MenuCategory.CHAMPAGNE) | menu.equals(MenuCategory.ZERO_COLA) | menu.equals(
+                MenuCategory.RED_WINE);
+    }
+
+    public long getTotalAmount() {
+        return this.totalAmount;
     }
 }

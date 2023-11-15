@@ -17,6 +17,14 @@ public class Order {
     public Order() {
     }
 
+    private static MenuCategory validateIsInMenu(String menu) {
+        Optional<MenuCategory> dish = MenuCategory.getDishDataByName(menu);
+        if (dish.isEmpty()) {
+            throw ChristmasException.of(ErrorMessage.INVALID_ORDER);
+        }
+        return dish.get();
+    }
+
     public void plus(final String menu, final Integer count) {
         validateZeroCount(count);
         MenuCategory dish = validateIsInMenu(menu);
@@ -38,14 +46,6 @@ public class Order {
 
     public MenuQuantityDto getOrder() {
         return new MenuQuantityDto(orderItem);
-    }
-
-    private static MenuCategory validateIsInMenu(String menu) {
-        Optional<MenuCategory> dish = MenuCategory.getDishDataByName(menu);
-        if (dish.isEmpty()) {
-            throw ChristmasException.of(ErrorMessage.INVALID_ORDER);
-        }
-        return dish.get();
     }
 
     private void put(final MenuCategory menuCategory, final Integer count) {
